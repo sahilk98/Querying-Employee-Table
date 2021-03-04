@@ -1,0 +1,34 @@
+/* Finds the total sales of each employee, grouped by the employee id */
+SELECT SUM(total_sales), emp_id
+FROM works_with
+GROUP BY emp_id;
+
+SELECT * FROM works_with;
+
+SELECT * FROM employee;
+
+SELECT * FROM branch;
+
+SELECT * FROM client;
+
+
+/* finds the total salary of everyone born in February */
+SELECT SUM(salary)
+FROM employee
+WHERE birth_day LIKE '_____02___';
+
+/* Finds the employee data for thos with sales of more than $30000 */
+SELECT employee.first_name, employee.last_name, works_with.total_sales AS sales
+FROM employee
+JOIN works_with
+ON employee.emp_id = works_with.emp_id
+WHERE works_with.total_sales>30000
+GROUP BY works_with.total_sales;
+
+/* finds the clients of the branch where the manager id is 102 */
+SELECT client_id, client_name
+FROM client
+WHERE client.branch_id IN(
+    SELECT branch.branch_id
+    FROM branch
+    WHERE branch.mgr_id = 102);
